@@ -1,5 +1,22 @@
 {
   "private": true,
+  "name": "image-block",
+  "version": "1.0.0",
+  "description": "Robot-friendly background-size: cover.",
+  "author": "Marcus McLean <marcus@mclean.digital>",
+  "main": "dist/image-block.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mrcsmcln/ImageBlock"
+  },
+  "keywords": [
+    "accessible",
+    "background",
+    "image",
+    "responsive",
+    "robots",
+    "seo"
+  ],
   "devDependencies": {
     "gulp": "^3.8.8",
     "gulp-batch": "^1.0.5",
@@ -8,5 +25,6 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.4.2",
     "gulp-watch": "^4.3.5"
-  }
+  },
+  "license": "MIT"
 }
