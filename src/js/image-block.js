@@ -1,8 +1,7 @@
 +function($) {
 	'use strict';
 
-	var ImageBlock = function(element, options) {
-    	this.options = options
+	var ImageBlock = function(element) {
 		this.$block  = $(element)
 		this.$image  = this.$block.find('.image-block-bg')
 
@@ -50,15 +49,9 @@
 		}
 	}
 
-	function Plugin(option) {
+	function Plugin() {
 		return this.each(function() {
-			var $this   = $(this)
-			var data    = $this.data('ap.image-block')
-			var options = typeof option === 'object' && option
-
-			if (!data) {
-				$this.data('ap.image-block', (data = new ImageBlock(this, options)))
-			}
+			this.data('ap.image-block', new ImageBlock(this))
 		})
 	}
 
