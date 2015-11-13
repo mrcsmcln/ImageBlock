@@ -1,1 +1,1 @@
-.image-block{position:relative;overflow:hidden}.image-block .image-block-bg{position:absolute;top:0;bottom:0;left:-1000000%;right:-1000000%;margin:auto}.image-block .image-block-bg.landscape{width:100%;height:auto}.image-block .image-block-bg.portrait{width:auto;height:100%}
+.image-block{position:relative;overflow:hidden}.image-block .image-block-bg{position:absolute;top:0;right:-10000%;bottom:0;left:-10000%;margin:auto}.image-block .image-block-bg.landscape{width:100%;height:auto}.image-block .image-block-bg.portrait{width:auto;height:100%}

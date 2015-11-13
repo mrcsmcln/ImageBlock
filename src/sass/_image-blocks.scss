@@ -5,9 +5,9 @@
 	.image-block-bg {
 		position: absolute;
 		top: 0;
+		right: -10000%;
 		bottom: 0;
 		left: -10000%;
-		right: -10000%;
 		margin: auto;
 
 		&.landscape {
@@ -21,4 +21,3 @@
 		}
 	}
 }
-

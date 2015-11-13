@@ -2,9 +2,9 @@
 	'use strict';
 
 	var ImageBlock = function(element, options) {
-    this.options = options
-		this.$block = $(element)
-		this.$image = this.$block.find('.image-block-bg')
+    	this.options = options
+		this.$block  = $(element)
+		this.$image  = this.$block.find('.image-block-bg')
 
 		$(window).on('resize', $.proxy(this.handleResize, this))
 
@@ -25,11 +25,13 @@
 			width:  this.$block.innerWidth(),
 			height: this.$block.innerHeight()
 		}
+
 		this.blockAspectRatio = this.blockDimensions.width / this.blockDimensions.height
 	}
 
 	ImageBlock.prototype.getImageDimensions = function() {
 		var image = this.$image[0]
+		
 		this.imageDimensions = {
 			width:  image.width,
 			height: image.height
@@ -50,7 +52,7 @@
 		return this.each(function() {
 			var $this = $(this)
 			var data = $this.data('ap.image-block')
-      var options = typeof option === 'object' && option
+			var options = typeof option === 'object' && option
 
 			if (!data) {
 				$this.data('ap.image-block', (data = new ImageBlock(this, options)))
@@ -69,8 +71,8 @@
 	}
 
 	$(function() {
-    $(window).on('load', function() {
-      $('.image-block').imageBlock()
-    })
+		$(window).on('load', function() {
+			$('.image-block').imageBlock()
+		})
 	})
 }(jQuery);
