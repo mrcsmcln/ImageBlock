@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "image-block",
   "version": "1.0.0",
   "description": "Robot-friendly background-size: cover.",
