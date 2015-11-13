@@ -1,6 +1,6 @@
 {
   "name": "image-block",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Robot-friendly background-size: cover.",
   "author": "Marcus McLean <marcus@mclean.digital>",
   "main": "dist/image-block.js",
