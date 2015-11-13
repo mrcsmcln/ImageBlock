@@ -72,9 +72,7 @@
 		return this
 	}
 
-	$(function() {
-		$(window).on('load', function() {
-			$('.image-block').imageBlock()
-		})
+	$(window).on('load', function() {
+		$('.image-block').imageBlock()
 	})
 }(jQuery);
