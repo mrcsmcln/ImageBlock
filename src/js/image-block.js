@@ -41,9 +41,11 @@
 	}
 
 	ImageBlock.prototype.resizeImage = function() {
-		if (this.blockAspectRatio > this.imageAspectRatio) {
+		if (this.blockAspectRatio > this.imageAspectRatio &&
+		    this.currentOrientation !== 'landscape') {
 			this.$image.removeClass('portrait').addClass('landscape')
-		} else {
+		} else if (this.blockAspectRatio < this.imageAspectRatio &&
+		           this.currentOrientation !== 'portrait') {
 			this.$image.removeClass('landscape').addClass('portrait')
 		}
 	}
