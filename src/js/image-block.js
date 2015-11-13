@@ -50,8 +50,8 @@
 
 	function Plugin(option) {
 		return this.each(function() {
-			var $this = $(this)
-			var data = $this.data('ap.image-block')
+			var $this   = $(this)
+			var data    = $this.data('ap.image-block')
 			var options = typeof option === 'object' && option
 
 			if (!data) {
