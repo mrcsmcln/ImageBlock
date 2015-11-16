@@ -19,7 +19,7 @@ gulp.task('watch', ['sass', 'js'], function() {
 })
 
 gulp.task('sass', function() {
-  gulp.src('src/sass/image-blocks.scss')
+  gulp.src('src/sass/image-block.scss')
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(sourcemaps.write('.'))
