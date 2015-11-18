@@ -1,71 +1,82 @@
 +function($) {
-	'use strict';
+    'use strict';
 
-	var ImageBlock = function(element) {
-		this.$block  = $(element)
-		this.$image  = this.$block.find('.image-block-bg')
+    var ImageBlock = function(element) {
+        this.$block  = $(element)
+        this.$images = this.$block.find('.image-block-bg')
 
-		$(window).on('resize', $.proxy(this.handleResize, this))
+        $(window).on('resize', $.proxy(this.handleResize, this))
 
-		this.getImageDimensions()
-		this.getBlockDimensions()
-		this.resizeImage()
-	}
+        this.getImagesDimensions()
+        this.getBlockDimensions()
+        this.resizeImages()
+    }
 
-	ImageBlock.VERSION = '1.0.0'
+    ImageBlock.VERSION = '1.0.3'
 
-	ImageBlock.prototype.handleResize = function() {
-		this.getBlockDimensions()
-		this.resizeImage()
-	}
+    ImageBlock.prototype.handleResize = function() {
+        this.getBlockDimensions()
+        this.resizeImages()
+    }
 
-	ImageBlock.prototype.getBlockDimensions = function() {
-		this.blockDimensions = {
-			width:  this.$block.innerWidth(),
-			height: this.$block.innerHeight()
-		}
+    ImageBlock.prototype.getBlockDimensions = function() {
+        this.blockDimensions = {
+            width:  this.$block.innerWidth(),
+            height: this.$block.innerHeight()
+        }
 
-		this.blockAspectRatio = this.blockDimensions.width / this.blockDimensions.height
-	}
+        this.blockAspectRatio = this.blockDimensions.width /
+                                this.blockDimensions.height
+    }
 
-	ImageBlock.prototype.getImageDimensions = function() {
-		var image = this.$image[0]
-		
-		this.imageDimensions = {
-			width:  image.width,
-			height: image.height
-		}
+    ImageBlock.prototype.getImagesDimensions = function() {
+        this.imagesDimensions = []
+        this.imagesAspectRatio = []
 
-		this.imageAspectRatio = this.imageDimensions.width / this.imageDimensions.height
-	}
+        this.$images.each($.proxy(function(index, element) {
+            var width  = element.width
+            var height = element.height
 
-	ImageBlock.prototype.resizeImage = function() {
-		if (this.blockAspectRatio > this.imageAspectRatio &&
-		    this.currentOrientation !== 'landscape') {
-			this.$image.removeClass('portrait').addClass('landscape')
-		} else if (this.blockAspectRatio < this.imageAspectRatio &&
-		           this.currentOrientation !== 'portrait') {
-			this.$image.removeClass('landscape').addClass('portrait')
-		}
-	}
+            this.imagesDimensions[index] = {
+                width:  width,
+                height: height
+            }
 
-	function Plugin() {
-		return this.each(function() {
-			$(this).data('ap.image-block', new ImageBlock(this))
-		})
-	}
+            this.imagesAspectRatio[index] = width / height
+        }, this))
+    }
 
-	var old = $.fn.imageBlock
+    ImageBlock.prototype.resizeImages = function() {
+        this.$images.each($.proxy(function(index, element) {
+            var $element = $(element)
 
-	$.fn.imageBlock             = Plugin
-	$.fn.imageBlock.Constructor = ImageBlock
+            if (this.blockAspectRatio > this.imagesAspectRatio[index] &&
+                $element.hasClass('portrait')) {
+                $element.removeClass('portrait').addClass('landscape')
+            } else if (this.blockAspectRatio < this.imagesAspectRatio[index] &&
+                       $element.hasClass('landscape')) {
+                $element.removeClass('landscape').addClass('portrait')
+            }
+        }, this))
+    }
 
-	$.fn.imageBlock.noConflict = function() {
-		$.fn.imageBlock = old
-		return this
-	}
+    function Plugin() {
+        return this.each(function() {
+            $(this).data('ap.image-block', new ImageBlock(this))
+        })
+    }
 
-	$(window).on('load', function() {
-		$('.image-block').imageBlock()
-	})
+    var old = $.fn.imageBlock
+
+    $.fn.imageBlock             = Plugin
+    $.fn.imageBlock.Constructor = ImageBlock
+
+    $.fn.imageBlock.noConflict = function() {
+        $.fn.imageBlock = old
+        return this
+    }
+
+    $(window).on('load', function() {
+        $('.image-block').imageBlock()
+    })
 }(jQuery);
