@@ -2,7 +2,7 @@
     'use strict';
 
     var ImageBlock = function(element) {
-        this.$block  = $(element)
+        this.$block = $(element)
         this.$images = this.$block.find('.image-block-bg')
 
         $(window).on('resize', $.proxy(this.handleResize, this))
@@ -21,12 +21,12 @@
 
     ImageBlock.prototype.getBlockDimensions = function() {
         this.blockDimensions = {
-            width:  this.$block.innerWidth(),
+            width: this.$block.innerWidth(),
             height: this.$block.innerHeight()
         }
 
-        this.blockAspectRatio = this.blockDimensions.width /
-                                this.blockDimensions.height
+        this.blockAspectRatio =
+            this.blockDimensions.width / this.blockDimensions.height
     }
 
     ImageBlock.prototype.getImagesDimensions = function() {
@@ -34,7 +34,7 @@
         this.imagesAspectRatio = []
 
         this.$images.each($.proxy(function(index, element) {
-            var width  = element.width
+            var width = element.width
             var height = element.height
 
             this.imagesDimensions[index] = {
@@ -68,7 +68,7 @@
 
     var old = $.fn.imageBlock
 
-    $.fn.imageBlock             = Plugin
+    $.fn.imageBlock = Plugin
     $.fn.imageBlock.Constructor = ImageBlock
 
     $.fn.imageBlock.noConflict = function() {
