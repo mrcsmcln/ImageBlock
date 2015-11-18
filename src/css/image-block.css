@@ -14,5 +14,7 @@
     .image-block .image-block-bg.portrait {
       width: auto;
       height: 100%; }
+  .image-block .image-block-content {
+    position: relative; }
 
 /*# sourceMappingURL=image-block.css.map */
