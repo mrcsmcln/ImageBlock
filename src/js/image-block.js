@@ -3,7 +3,9 @@
 
     var ImageBlock = function(element) {
         this.$block = $(element)
-        this.$images = this.$block.find('.image-block-bg')
+        this.$images = this.$block.find('.image-block-bg').filter(function() {
+            return $(this).closest('.image-block').is(element)
+        })
 
         $(window).on('resize', $.proxy(this.handleResize, this))
 
@@ -38,7 +40,7 @@
             var height = element.height
 
             this.imagesDimensions[index] = {
-                width:  width,
+                width: width,
                 height: height
             }
 
@@ -49,12 +51,12 @@
     ImageBlock.prototype.resizeImages = function() {
         this.$images.each($.proxy(function(index, element) {
             var $element = $(element)
-
+            
             if (this.blockAspectRatio > this.imagesAspectRatio[index] &&
-                $element.hasClass('portrait')) {
+                !$element.hasClass('landscape')) {
                 $element.removeClass('portrait').addClass('landscape')
             } else if (this.blockAspectRatio < this.imagesAspectRatio[index] &&
-                       $element.hasClass('landscape')) {
+                       !$element.hasClass('portrait')) {
                 $element.removeClass('landscape').addClass('portrait')
             }
         }, this))
