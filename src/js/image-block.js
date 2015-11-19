@@ -64,7 +64,7 @@
 
     function Plugin() {
         return this.each(function() {
-            $(this).data('ap.image-block', new ImageBlock(this))
+            $(this).data('mjm.image-block', new ImageBlock(this))
         })
     }
 
