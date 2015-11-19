@@ -7,8 +7,6 @@
             return $(this).closest('.image-block').is(element)
         })
 
-        $(window).on('resize', $.proxy(this.handleResize, this))
-
         this.getImagesDimensions()
         this.getBlockDimensions()
         this.resizeImages()
@@ -79,6 +77,8 @@
     }
 
     $(window).on('load', function() {
-        $('.image-block').imageBlock()
+        $('.image-block').imageBlock().on('resize', function() {
+            $(this).data('mjm.image-block').handleResize()
+        })
     })
 }(jQuery);
