@@ -12,7 +12,7 @@
         this.resizeImages()
     }
 
-    ImageBlock.VERSION = '1.0.6'
+    ImageBlock.VERSION = '1.0.7'
 
     ImageBlock.prototype.handleResize = function() {
         this.getBlockDimensions()
