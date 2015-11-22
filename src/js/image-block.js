@@ -12,7 +12,7 @@
         this.resizeImages()
     }
 
-    ImageBlock.VERSION = '1.0.7'
+    ImageBlock.VERSION = '1.0.8'
 
     ImageBlock.prototype.handleResize = function() {
         this.getBlockDimensions()
@@ -79,6 +79,8 @@
     $(window).on('load', function() {
         $('.image-block').imageBlock()
     }).on('resize.mjm.image-block', function() {
-        $('.image-block').data('mjm.image-block').handleResize()
+        $('.image-block').each(function() {
+            $(this).data('mjm.image-block').handleResize()
+        })
     })
-}(jQuery, window);
+}(jQuery);

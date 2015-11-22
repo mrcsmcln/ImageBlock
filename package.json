@@ -3,7 +3,7 @@
   "version": "1.0.7",
   "description": "Robot-friendly background-size: cover.",
   "author": "Marcus McLean <marcus@mclean.digital>",
-  "main": "dist/image-block.js",
+  "main": "src/js/image-block.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/mrcsmcln/ImageBlock"
