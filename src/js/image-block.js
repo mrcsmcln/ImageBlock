@@ -7,12 +7,24 @@
             return $(this).closest('.image-block').is(element)
         })
 
-        this.getImagesDimensions()
+        this.imagesDimensions = []
+        this.imagesAspectRatio = []
+
         this.getBlockDimensions()
-        this.resizeImages()
+
+        this.$images.each($.proxy(function(index, element) {
+            $(element).on('load.mjm.image-block', $.proxy(function() {
+                this.getImageDimensions(index, element)
+                this.resizeImage(index, element)
+            }, this))
+
+            if (element.complete) {
+                $(element).trigger('load.mjm.image-block')
+            }
+        }, this))
     }
 
-    ImageBlock.VERSION = '1.0.8'
+    ImageBlock.VERSION = '1.0.9'
 
     ImageBlock.prototype.handleResize = function() {
         this.getBlockDimensions()
@@ -29,34 +41,33 @@
             this.blockDimensions.width / this.blockDimensions.height
     }
 
-    ImageBlock.prototype.getImagesDimensions = function() {
-        this.imagesDimensions = []
-        this.imagesAspectRatio = []
+    ImageBlock.prototype.getImageDimensions = function(index, element) {
+        var width = element.width
+        var height = element.height
 
-        this.$images.each($.proxy(function(index, element) {
-            var width = element.width
-            var height = element.height
+        this.imagesDimensions[index] = {
+            width: width,
+            height: height
+        }
 
-            this.imagesDimensions[index] = {
-                width: width,
-                height: height
-            }
+        this.imagesAspectRatio[index] = width / height
+    }
 
-            this.imagesAspectRatio[index] = width / height
-        }, this))
+    ImageBlock.prototype.resizeImage = function(index, element) {
+         var $element = $(element)
+            
+        if (this.blockAspectRatio > this.imagesAspectRatio[index] &&
+            !$element.hasClass('landscape')) {
+            $element.removeClass('portrait').addClass('landscape')
+        } else if (this.blockAspectRatio < this.imagesAspectRatio[index] &&
+                   !$element.hasClass('portrait')) {
+            $element.removeClass('landscape').addClass('portrait')
+        }
     }
 
     ImageBlock.prototype.resizeImages = function() {
         this.$images.each($.proxy(function(index, element) {
-            var $element = $(element)
-            
-            if (this.blockAspectRatio > this.imagesAspectRatio[index] &&
-                !$element.hasClass('landscape')) {
-                $element.removeClass('portrait').addClass('landscape')
-            } else if (this.blockAspectRatio < this.imagesAspectRatio[index] &&
-                       !$element.hasClass('portrait')) {
-                $element.removeClass('landscape').addClass('portrait')
-            }
+            this.resizeImage(index, element)
         }, this))
     }
 
@@ -76,9 +87,11 @@
         return this
     }
 
-    $(window).on('load', function() {
+    $(document).on('ready', function() {
         $('.image-block').imageBlock()
-    }).on('resize.mjm.image-block', function() {
+    })
+
+    $(window).on('resize.mjm.image-block', function() {
         $('.image-block').each(function() {
             $(this).data('mjm.image-block').handleResize()
         })

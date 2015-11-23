@@ -1,5 +1,7 @@
 # ImageBlock
 
+[![npm version](https://img.shields.io/npm/v/image-block.svg)](https://www.npmjs.com/package/image-block)
+
 ImageBlock is a dead-simple way to use an `<img>` element like you would `background-size: cover;`.
 
 ## Why Use ImageBlock?
@@ -64,7 +66,7 @@ If you'd like to go a bit further, follow these steps to reduce the total number
 
 First, install ImageBlock via NPM:
 
-```sh
+```bash
 npm install image-block --save
 ```
 
