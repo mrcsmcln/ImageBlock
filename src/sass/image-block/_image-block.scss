@@ -1,27 +1,27 @@
 .image-block {
 	position: relative;
 	overflow: hidden;
+}
 
-	.image-block-bg {
-		position: absolute;
-		top: 0;
-		right: -10000%;
-		bottom: 0;
-		left: -10000%;
-		margin: auto;
+.image-block-bg {
+	position: absolute;
+	top: 0;
+	right: -10000%;
+	bottom: 0;
+	left: -10000%;
+	margin: auto;
 
-		&.landscape {
-			width: 100%;
-			height: auto;
-		}
-
-		&.portrait {
-			width: auto;
-			height: 100%;
-		}
+	&.landscape {
+		width: 100%;
+		height: auto;
 	}
 
-	.image-block-content {
-		position: relative;
+	&.portrait {
+		width: auto;
+		height: 100%;
 	}
+}
+
+.image-block-content {
+	position: relative;
 }
