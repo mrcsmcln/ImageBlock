@@ -42,8 +42,16 @@
     }
 
     ImageBlock.prototype.getImageDimensions = function(index, element) {
-        var width = element.width
-        var height = element.height
+        if (element instanceof HTMLImageElement) {
+            var width = element.naturalWidth
+            var height = element.naturalHeight
+        } else if (element instanceof SVGElement) {
+            var width = element.viewBox.baseVal.width
+            var height = element.viewBox.baseVal.height
+        } else if (element instanceof HTMLVideoElement) {
+            var width = videoWidth
+            var height = videoHeight
+        }
 
         this.imagesDimensions[index] = {
             width: width,
@@ -54,14 +62,10 @@
     }
 
     ImageBlock.prototype.resizeImage = function(index, element) {
-         var $element = $(element)
-            
-        if (this.blockAspectRatio > this.imagesAspectRatio[index] &&
-            !$element.hasClass('landscape')) {
-            $element.removeClass('portrait').addClass('landscape')
-        } else if (this.blockAspectRatio < this.imagesAspectRatio[index] &&
-                   !$element.hasClass('portrait')) {
-            $element.removeClass('landscape').addClass('portrait')
+        if (this.blockAspectRatio > this.imagesAspectRatio[index]) {
+            this.addRemoveClass(element, 'landscape', 'portrait')
+        } else if (this.blockAspectRatio < this.imagesAspectRatio[index]) {
+            this.addRemoveClass(element, 'portrait', 'landscape')
         }
     }
 
@@ -69,6 +73,25 @@
         this.$images.each($.proxy(function(index, element) {
             this.resizeImage(index, element)
         }, this))
+    }
+
+    ImageBlock.prototype.addRemoveClass = function(element, add, remove) {
+        var classAttribute = element.getAttribute('class') + ' '
+        var changed = false
+
+        if (classAttribute.indexOf(add + ' ') < 0) {
+            classAttribute = classAttribute + add
+            changed = true
+        }
+
+        if (classAttribute.indexOf(remove + ' ') >= 0) {
+            classAttribute = classAttribute.replace(remove + ' ', '')
+            changed = true
+        }
+
+        if (changed) {
+            element.setAttribute('class', classAttribute)
+        }
     }
 
     function Plugin() {
@@ -87,13 +110,14 @@
         return this
     }
 
-    $(document).on('ready', function() {
+    $(document).on('ready.mjm.image-block', function() {
         $('.image-block').imageBlock()
-    })
 
-    $(window).on('resize.mjm.image-block', function() {
-        $('.image-block').each(function() {
-            $(this).data('mjm.image-block').handleResize()
+        $(window).on('resize.mjm.image-block', function() {
+            $('.image-block').each(function() {
+                $(this).data('mjm.image-block').handleResize()
+            })
         })
     })
+    
 }(jQuery);
