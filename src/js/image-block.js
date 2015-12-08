@@ -1,4 +1,4 @@
-+function($) {
+ +function($) {
     'use strict';
 
     var ImageBlock = function(element) {
@@ -113,7 +113,7 @@
     $(document).on('ready.mjm.image-block', function() {
         $('.image-block').imageBlock()
 
-        $(window).on('resize.mjm.image-block', function() {
+        $(window).on('resize.mjm.image-block load.mjm.image-block', function() {
             $('.image-block').each(function() {
                 $(this).data('mjm.image-block').handleResize()
             })
