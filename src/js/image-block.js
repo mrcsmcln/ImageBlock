@@ -13,18 +13,18 @@
         this.getBlockDimensions()
 
         this.$images.each($.proxy(function(index, element) {
-            $(element).on('load.mjm.image-block', $.proxy(function() {
+            var $element = $(element)
+
+            $element.one('load.mjm.image-block', $.proxy(function() {
                 this.getImageDimensions(index, element)
                 this.resizeImage(index, element)
             }, this))
 
-            if (element.complete) {
-                $(element).trigger('load.mjm.image-block')
-            }
+            $element.trigger('load.mjm.image-block')
         }, this))
     }
 
-    ImageBlock.VERSION = '1.0.11'
+    ImageBlock.VERSION = '1.0.12'
 
     ImageBlock.prototype.handleResize = function() {
         this.getBlockDimensions()
