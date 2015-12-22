@@ -20,11 +20,13 @@
                 this.resizeImage(index, element)
             }, this))
 
-            $element.trigger('load.mjm.image-block')
+            if (element.complete || element.naturalWidth) {
+                $element.trigger('load.mjm.image-block')
+            }
         }, this))
     }
 
-    ImageBlock.VERSION = '1.0.13'
+    ImageBlock.VERSION = '1.0.14'
 
     ImageBlock.prototype.handleResize = function() {
         this.getBlockDimensions()
@@ -49,8 +51,8 @@
             var width = element.viewBox.baseVal.width
             var height = element.viewBox.baseVal.height
         } else if (element instanceof HTMLVideoElement) {
-            var width = videoWidth
-            var height = videoHeight
+            var width = element.videoWidth
+            var height = element.videoHeight
         }
 
         this.imagesDimensions[index] = {
@@ -119,5 +121,4 @@
             })
         })
     })
-    
 }(jQuery);
